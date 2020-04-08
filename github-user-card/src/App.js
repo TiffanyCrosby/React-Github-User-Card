@@ -1,58 +1,58 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
 
-import UserCard from './components/UserCard'
+import UserCard from './components/UserCard';
 
-import './App.css'
-
-
+import './App.css';
 
 class App extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       user: {},
-      followers: []
-    }
+      followers: [],
+    };
   }
 
+  //this is like useEffect hook
   componentDidMount() {
-    axios.get("https://api.github.com/users/TiffanyCrosby")
-      .then(response => {
-        console.log('response data', response.data);
-        this.setState({ user: response.data })
-      })
-      .catch(error => console.log('Error: ', error));
-
-
-
-
     axios
-      .get("https://api.github.com/users/TiffanyCrosby/followers")
-      .then(response => {
+      .get('https://api.github.com/users/TiffanyCrosby')
+      .then((response) => {
+        console.log('response data', response.data);
+        this.setState({ user: response.data });
+      })
+      .catch((error) => console.log('Error: ', error));
+
+    // this is like fetch...getting data
+    axios
+      .get('https://api.github.com/users/TiffanyCrosby/followers')
+      .then((response) => {
         console.log('followers data', response.data);
+        //setting state to data from api
         this.setState({ followers: response.data });
       })
-      .catch(error => console.log('Error: ', error));
+      .catch((error) => console.log('Error: ', error));
   }
-
 
   render() {
     return (
-      <div className='body'>
+      <div className="body">
         <h1>This Is Me</h1>
-        <div className='main-user'>
-          {<UserCard
-            login={this.state.user.login}
-            id={this.state.user.id}
-            img={this.state.user.avatar_url}
-            bio={this.state.user.bio}
-            repos={this.state.user.public_repos}
-          />}
+        <div className="main-user">
+          {
+            <UserCard
+              login={this.state.user.login}
+              id={this.state.user.id}
+              img={this.state.user.avatar_url}
+              bio={this.state.user.bio}
+              repos={this.state.user.public_repos}
+            />
+          }
         </div>
         <h1>GitHub Followers</h1>
-        <div className='followers'>
-          {this.state.followers.map(follower => (
+        <div className="followers">
+          {this.state.followers.map((follower) => (
             <UserCard
               login={follower.login}
               id={follower.id}
@@ -62,7 +62,7 @@ class App extends Component {
           ))}
         </div>
       </div>
-    )
+    );
   }
 }
 
