@@ -11,7 +11,7 @@ function UserCard(props) {
           <img src={props.img} alt={props.id}></img>
           <CardBody>
             <p>{`Login: ${props.login}`}</p>
-            /*followers did not have bios available */
+            {/*followers did not have bios available*/}
             <p>{props.bio ? `Bio: ${props.bio}` : null}</p>
             <p>{`Public Repos: ${props.repos}`}</p>
           </CardBody>
